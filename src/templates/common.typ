@@ -1,0 +1,5 @@
+#set page(paper: "jis-b5", margin: (top: 14mm, bottom: 14mm, x: 16mm))
+#set text(font: ("New Computer Modern", "Noto Serif CJK JP"), size: 10.5pt)
+#show heading.where(level: 1): it => block(above: 10pt, below: 6pt, text(size: 13pt, weight: "bold", it.body))
+#show heading.where(level: 2): it => block(above: 8pt, below: 5pt, text(size: 11.5pt, weight: "bold", it.body))
+#show heading.where(level: 3): it => block(above: 6pt, below: 4pt, text(size: 10.5pt, weight: "bold", it.body))

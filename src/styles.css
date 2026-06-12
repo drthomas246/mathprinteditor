@@ -1,0 +1,1169 @@
+:root {
+  color: #18202f;
+  background: #eef2f7;
+  font-family:
+    Inter, "Noto Sans JP", "Yu Gothic UI", "Hiragino Sans", system-ui, sans-serif;
+}
+
+/* 全画面で共有する基本UI。各ページ固有の余白やレイアウトは後続セクションで上書きする。 */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button,
+.button {
+  align-items: center;
+  background: #ffffff;
+  border: 1px solid #cad3df;
+  border-radius: 7px;
+  color: #18202f;
+  cursor: pointer;
+  display: inline-flex;
+  gap: 7px;
+  min-height: 38px;
+  padding: 0 12px;
+  text-decoration: none;
+}
+
+button:hover,
+.button:hover {
+  border-color: #8191a7;
+}
+
+.primary {
+  background: #1d4f8f;
+  border-color: #1d4f8f;
+  color: #ffffff;
+}
+
+.icon-button {
+  justify-content: center;
+  min-height: 34px;
+  padding: 0;
+  width: 34px;
+}
+
+.danger {
+  color: #b42318;
+}
+
+/* 左ナビを固定し、編集ページの作業面が横に広く残るようにする。 */
+.shell {
+  min-height: 100vh;
+  padding-left: 228px;
+}
+
+.sidebar {
+  background: #172033;
+  bottom: 0;
+  color: #ffffff;
+  left: 0;
+  overflow-y: auto;
+  padding: 22px 16px;
+  position: fixed;
+  top: 0;
+  width: 228px;
+  z-index: 30;
+}
+
+.brand {
+  align-items: center;
+  display: flex;
+  font-size: 18px;
+  font-weight: 700;
+  gap: 10px;
+  margin-bottom: 28px;
+}
+
+.sidebar-header {
+  display: block;
+}
+
+.menu-toggle {
+  display: none;
+}
+
+.sidebar-nav a {
+  align-items: center;
+  border-radius: 7px;
+  color: #d8e0ee;
+  display: flex;
+  gap: 9px;
+  padding: 10px;
+  text-decoration: none;
+}
+
+.sidebar-nav a.active {
+  background: #273553;
+  color: #ffffff;
+}
+
+main {
+  min-width: 0;
+}
+
+.page {
+  padding: 28px;
+}
+
+.editor-page {
+  --editor-header-height: 142px;
+  --editor-sticky-gap: 10px;
+}
+
+.preview-page {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  height: 100vh;
+  min-height: 0;
+}
+
+.page-header {
+  align-items: flex-start;
+  display: flex;
+  gap: 18px;
+  justify-content: space-between;
+  margin-bottom: 22px;
+}
+
+.editor-page .page-header {
+  background: #eef2f7;
+  margin: -28px -28px 22px;
+  padding: 28px 28px 12px;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+
+.page-header h1 {
+  font-size: 26px;
+  line-height: 1.2;
+  margin: 0 0 5px;
+}
+
+.page-header p {
+  color: #58657a;
+  margin: 0;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+  justify-content: flex-end;
+}
+
+.header-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+  justify-content: flex-end;
+}
+
+.import-button {
+  position: relative;
+}
+
+.import-button input {
+  height: 1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  width: 1px;
+}
+
+.import-error {
+  background: #fff4f2;
+  border: 1px solid #f4b8ae;
+  border-radius: 7px;
+  color: #9f1f13;
+  margin: -8px 0 16px;
+  max-width: 720px;
+  padding: 10px 12px;
+}
+
+/* プリント一覧はカード型の行にして、検索・複製・削除を同じ視線で扱えるようにする。 */
+.search-box {
+  align-items: center;
+  background: #ffffff;
+  border: 1px solid #cad3df;
+  border-radius: 7px;
+  display: flex;
+  gap: 8px;
+  max-width: 520px;
+  padding: 0 12px;
+}
+
+.search-box input {
+  border: 0;
+  min-height: 42px;
+  outline: 0;
+  width: 100%;
+}
+
+.print-table {
+  display: grid;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.print-row {
+  align-items: center;
+  background: #ffffff;
+  border: 1px solid #d7dee8;
+  border-radius: 7px;
+  display: grid;
+  gap: 12px;
+  grid-template-columns: minmax(0, 1fr) auto auto auto;
+  padding: 12px;
+}
+
+.print-row a {
+  color: inherit;
+  display: grid;
+  gap: 4px;
+  text-decoration: none;
+}
+
+.print-row span,
+.print-row time {
+  color: #647184;
+  font-size: 13px;
+}
+
+/* GeoGebraは内部UIが大きいため、ページ全体を作図領域として使う。 */
+.image-maker-page {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  height: 100vh;
+  min-height: 0;
+}
+
+.geogebra-workspace {
+  background: #ffffff;
+  border: 1px solid #d7dee8;
+  border-radius: 8px;
+  display: grid;
+  min-height: 0;
+  min-width: 0;
+  overflow: hidden;
+  padding: 12px;
+}
+
+.geogebra-frame,
+.geogebra-workspace [id$="-holder"] {
+  height: 100%;
+  min-width: 0;
+  width: 100%;
+}
+
+.geogebra-loading {
+  align-items: center;
+  color: #58657a;
+  display: grid;
+  height: 100%;
+  min-height: 480px;
+  place-items: center;
+}
+
+/* 編集ページの上部入力とブロック追加パレット。 */
+.title-fields {
+  display: grid;
+  gap: 9px;
+  width: min(720px, 100%);
+}
+
+.title-fields > input {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.title-fields div {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: max-content minmax(90px, 160px);
+}
+
+.print-number-field {
+  align-items: center;
+  display: inline-grid;
+  gap: 6px;
+  grid-template-columns: auto 72px;
+}
+
+.print-number-field span {
+  color: #41506a;
+  font-weight: 700;
+}
+
+.title-fields input,
+.title-fields select,
+.block-editor input,
+.block-editor select,
+.block-editor textarea {
+  background: #ffffff;
+  border: 1px solid #cad3df;
+  border-radius: 7px;
+  min-height: 38px;
+  padding: 8px 10px;
+  width: 100%;
+}
+
+.editor-layout {
+  align-items: start;
+  display: grid;
+  gap: 18px;
+  grid-template-columns: 176px minmax(0, 1fr);
+}
+
+.block-palette {
+  display: grid;
+  gap: 8px;
+  position: sticky;
+  top: 18px;
+}
+
+.editor-page .block-palette {
+  top: calc(var(--editor-header-height) + var(--editor-sticky-gap));
+}
+
+.block-palette button {
+  justify-content: flex-start;
+}
+
+/* ブロック種別の色はパレットと実ブロックでそろえ、追加後の位置を追いやすくする。 */
+.block-palette-button {
+  border-left: 5px solid #58708f;
+}
+
+.block-palette-definition {
+  border-left-color: #28735f;
+}
+
+.block-palette-theorem {
+  border-left-color: #8e4c7d;
+}
+
+.block-palette-example {
+  border-left-color: #b76b22;
+}
+
+.block-palette-exercise {
+  border-left-color: #1d4f8f;
+}
+
+.block-list {
+  display: grid;
+  gap: 14px;
+}
+
+.block-editor {
+  background: #ffffff;
+  border: 1px solid #d7dee8;
+  border-left: 5px solid #58708f;
+  border-radius: 8px;
+  display: grid;
+  gap: 12px;
+  padding: 14px;
+}
+
+.block-editor.is-dragging {
+  opacity: 0.58;
+}
+
+.block-editor.is-drop-target {
+  border-color: #1d4f8f;
+  box-shadow: 0 0 0 2px rgba(29, 79, 143, 0.18);
+}
+
+.drag-handle {
+  color: #647184;
+  cursor: grab;
+}
+
+.drag-handle:active {
+  cursor: grabbing;
+}
+
+.block-definition {
+  border-left-color: #28735f;
+}
+
+.block-theorem {
+  border-left-color: #8e4c7d;
+}
+
+.block-example {
+  border-left-color: #b76b22;
+}
+
+.block-exercise {
+  border-left-color: #1d4f8f;
+}
+
+.block-toolbar {
+  align-items: center;
+  display: grid;
+  gap: 8px;
+  grid-template-columns: auto minmax(0, 1fr) repeat(3, auto);
+}
+
+.page-break-toggle {
+  align-items: center;
+  border: 1px solid #cad3df;
+  border-radius: 7px;
+  color: #41506a;
+  display: inline-flex;
+  gap: 6px;
+  min-height: 38px;
+  padding: 0 10px;
+  white-space: nowrap;
+}
+
+.page-break-toggle input {
+  background: transparent;
+  border: 0;
+  margin: 0;
+  min-height: 0;
+  padding: 0;
+  width: auto;
+}
+
+/* TipTap本文・MathLive・画像ノードの見た目をまとめる。 */
+.tiptap-surface {
+  border: 1px solid #cad3df;
+  border-radius: 7px;
+  min-height: 116px;
+  padding: 10px 12px;
+}
+
+.tiptap-surface .ProseMirror {
+  min-height: 92px;
+  outline: 0;
+}
+
+.column-editors {
+  align-items: start;
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.column-editors label {
+  align-content: start;
+  color: #58657a;
+  display: grid;
+  font-size: 12px;
+  gap: 5px;
+  min-width: 0;
+}
+
+.math-field {
+  border: 1px solid #cad3df;
+  border-radius: 7px;
+  display: block;
+  font-size: 22px;
+  min-height: 54px;
+  padding: 10px 12px;
+  width: 100%;
+}
+
+.formula-editor {
+  display: grid;
+  gap: 10px;
+}
+
+.formula-editor label {
+  color: #58657a;
+  display: grid;
+  font-size: 12px;
+  gap: 5px;
+}
+
+.formula-editor label span {
+  align-items: center;
+  display: inline-flex;
+  gap: 6px;
+}
+
+.formula-snippets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.formula-snippets button {
+  color: #1d4f8f;
+  font-family: "Cascadia Code", "Consolas", monospace;
+  min-height: 32px;
+  padding: 0 10px;
+}
+
+.rich-text-toolbar {
+  align-items: end;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.inline-math-toolbar {
+  align-items: end;
+  background: #f7f9fc;
+  border: 1px solid #d7dee8;
+  border-radius: 7px;
+  display: flex;
+  flex: 1 1 520px;
+  gap: 8px;
+  min-width: min(100%, 320px);
+  padding: 10px;
+}
+
+.inline-math-input {
+  color: #58657a;
+  display: grid;
+  flex: 1 1 220px;
+  font-size: 12px;
+  gap: 5px;
+}
+
+.inline-math-input span {
+  align-items: center;
+  display: inline-flex;
+  gap: 6px;
+}
+
+.inline-toolbar-math-field {
+  background: #ffffff;
+  border: 1px solid #cad3df;
+  border-radius: 7px;
+  display: block;
+  font-size: 19px;
+  min-height: 42px;
+  padding: 6px 9px;
+  width: 100%;
+}
+
+.inline-math-toolbar button {
+  color: #1d4f8f;
+  font-family: "Cascadia Code", "Consolas", monospace;
+  min-height: 38px;
+}
+
+.inline-file-button {
+  align-items: center;
+  align-self: end;
+  color: #1d4f8f;
+  display: inline-flex;
+  flex: 0 0 auto;
+  gap: 7px;
+  justify-content: center;
+  min-height: 42px;
+  overflow: hidden;
+  padding: 0 14px;
+  position: relative;
+  white-space: nowrap;
+}
+
+.inline-page-break-button {
+  align-self: end;
+  color: #1d4f8f;
+  flex: 0 0 auto;
+  min-height: 42px;
+  white-space: nowrap;
+}
+
+.inline-file-button input {
+  cursor: pointer;
+  inset: 0;
+  opacity: 0;
+  position: absolute;
+}
+
+.inline-image-tools {
+  align-items: end;
+  display: flex;
+  flex: 0 0 auto;
+  gap: 8px;
+}
+
+.inline-image-width {
+  color: #58657a;
+  display: grid;
+  font-size: 12px;
+  gap: 5px;
+  width: 92px;
+}
+
+.inline-image-width input {
+  min-height: 42px;
+}
+
+.inline-math-node-view {
+  display: inline-flex;
+  margin: 0 3px;
+  max-width: min(360px, 100%);
+  vertical-align: -0.28em;
+}
+
+.inline-math-node-view.selected {
+  outline: 2px solid #8bb7f0;
+  outline-offset: 2px;
+}
+
+.inline-math-field {
+  background: #eef5ff;
+  border: 1px solid #c8d8ee;
+  border-radius: 6px;
+  display: inline-block;
+  font-size: 1.05em;
+  min-height: 30px;
+  min-width: 52px;
+  padding: 2px 6px;
+}
+
+.inline-image-node-view {
+  display: inline-flex;
+  margin: 0 4px;
+  max-width: min(220px, 100%);
+  vertical-align: middle;
+}
+
+.inline-image-node-view.selected {
+  outline: 2px solid #8bb7f0;
+  outline-offset: 2px;
+}
+
+.inline-image-node-view img {
+  border: 1px solid #c8d8ee;
+  border-radius: 6px;
+  max-height: 160px;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+.inline-page-break-node-view {
+  align-items: center;
+  background: #fff7ed;
+  border: 1px dashed #d08b41;
+  border-radius: 6px;
+  color: #8a4b13;
+  display: inline-flex;
+  font-size: 12px;
+  font-weight: 700;
+  margin: 0 6px;
+  padding: 2px 8px;
+  vertical-align: middle;
+}
+
+.inline-page-break-node-view.selected {
+  outline: 2px solid #f0b36b;
+  outline-offset: 2px;
+}
+
+.answer-options {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: 160px 130px;
+}
+
+.answer-options label {
+  color: #58657a;
+  display: grid;
+  font-size: 12px;
+  gap: 3px;
+}
+
+.answer-teacher-editor,
+.answer-teacher-editor .ProseMirror {
+  min-height: 126px;
+}
+
+.answer-teacher-columns {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.answer-teacher-columns label {
+  align-content: start;
+  color: #58657a;
+  display: grid;
+  font-size: 12px;
+  gap: 5px;
+  min-width: 0;
+}
+
+.image-editor {
+  display: grid;
+  gap: 10px;
+}
+
+.image-options {
+  align-items: end;
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 240px));
+}
+
+.image-options label {
+  color: #58657a;
+  display: grid;
+  font-size: 12px;
+  gap: 5px;
+}
+
+.image-editor img {
+  border: 1px solid #d7dee8;
+  border-radius: 7px;
+  max-height: 220px;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+/* PDFプレビューとTypstソースを並べ、出力差分を同じ画面で確認できるようにする。 */
+.preview-grid {
+  align-items: stretch;
+  display: grid;
+  gap: 18px;
+  grid-template-columns: minmax(420px, 2fr) minmax(260px, 1fr);
+  min-height: 0;
+}
+
+.pdf-preview-panel {
+  background: #ffffff;
+  border: 1px solid #d7dee8;
+  border-radius: 8px;
+  display: grid;
+  grid-template-rows: 42px minmax(0, 1fr);
+  height: 100%;
+  min-height: 0;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.preview-status {
+  align-items: center;
+  background: #f7f9fc;
+  border-bottom: 1px solid #d7dee8;
+  color: #58657a;
+  display: flex;
+  font-size: 13px;
+  min-height: 42px;
+  padding: 0 14px;
+}
+
+.download-error {
+  background: #fff4f2;
+  border: 1px solid #f0c8c1;
+  border-radius: 7px;
+  color: #9f2f24;
+  margin: -10px 0 14px;
+  padding: 10px 12px;
+}
+
+.pdf-frame {
+  border: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.pdf-placeholder {
+  align-items: center;
+  color: #58657a;
+  display: grid;
+  padding: 18px;
+  place-items: center;
+}
+
+.pdf-placeholder pre {
+  background: #fff4f2;
+  border: 1px solid #f0c8c1;
+  border-radius: 7px;
+  color: #9f2f24;
+  line-height: 1.6;
+  max-height: 100%;
+  overflow: auto;
+  padding: 14px;
+  white-space: pre-wrap;
+  width: 100%;
+}
+
+.paper-preview {
+  aspect-ratio: 182 / 257;
+  background: #ffffff;
+  box-shadow: 0 14px 35px rgba(20, 30, 48, 0.14);
+  display: grid;
+  gap: 10px;
+  max-width: 620px;
+  padding: 36px;
+}
+
+.paper-header {
+  border-bottom: 1px solid #b9c2cf;
+  display: grid;
+  gap: 4px;
+  padding-bottom: 10px;
+}
+
+.paper-header strong {
+  font-size: 22px;
+}
+
+.paper-header span {
+  color: #58657a;
+}
+
+.paper-block {
+  border-left: 3px solid #8191a7;
+  display: grid;
+  gap: 7px;
+  min-height: 34px;
+  padding-left: 10px;
+}
+
+.paper-block p {
+  line-height: 1.7;
+  margin: 0;
+  white-space: pre-wrap;
+}
+
+.paper-block code {
+  background: #f2f6fc;
+  border: 1px solid #d8e1ee;
+  border-radius: 6px;
+  color: #1d4f8f;
+  display: inline-block;
+  font-family: "Cambria Math", "Times New Roman", serif;
+  font-size: 17px;
+  padding: 8px 10px;
+  white-space: normal;
+}
+
+.paper-block code.inline-math {
+  background: #eef5ff;
+  border: 1px solid #c8d8ee;
+  display: inline;
+  font-size: 1em;
+  margin: 0 2px;
+  padding: 1px 5px;
+}
+
+.answer-preview {
+  border-color: #748298;
+  border-style: solid;
+  border-width: 0;
+  width: 100%;
+}
+
+.answer-lines {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent 8mm,
+    #748298 8mm,
+    #748298 calc(8mm + 1px)
+  );
+}
+
+.answer-box,
+.answer-grid {
+  border-width: 1px;
+}
+
+.answer-grid {
+  background-image:
+    linear-gradient(#d6dce5 1px, transparent 1px),
+    linear-gradient(90deg, #d6dce5 1px, transparent 1px);
+  background-size: 7mm 7mm;
+}
+
+.code-preview {
+  background: #101827;
+  border-radius: 8px;
+  color: #eef3ff;
+  height: 100%;
+  line-height: 1.65;
+  margin: 0;
+  min-height: 0;
+  overflow: auto;
+  padding: 18px;
+  white-space: pre-wrap;
+}
+
+/* AI問題作成はプロンプトと貼り付け欄を同時に見られる高さ配分にする。 */
+.ai-maker-layout {
+  align-items: start;
+  display: grid;
+  gap: 18px;
+  grid-template-columns: minmax(220px, 320px) minmax(0, 1fr);
+  min-height: 0;
+}
+
+.ai-control-panel,
+.ai-work-panel {
+  background: #ffffff;
+  border: 1px solid #d7dee8;
+  border-radius: 8px;
+  display: grid;
+  gap: 14px;
+  padding: 16px;
+}
+
+.ai-control-panel {
+  position: sticky;
+  top: 18px;
+}
+
+.ai-work-panel {
+  grid-template-rows: auto minmax(170px, 0.44fr) auto minmax(190px, 0.56fr);
+  height: calc(100vh - 150px);
+  min-height: 0;
+}
+
+.ai-control-panel label,
+.ai-control-panel fieldset {
+  color: #41506a;
+  display: grid;
+  font-size: 13px;
+  font-weight: 700;
+  gap: 6px;
+}
+
+.ai-control-panel input,
+.ai-control-panel select {
+  background: #ffffff;
+  border: 1px solid #cad3df;
+  border-radius: 7px;
+  color: #18202f;
+  min-height: 38px;
+  padding: 8px 10px;
+  width: 100%;
+}
+
+.ai-control-panel fieldset {
+  border: 1px solid #d7dee8;
+  border-radius: 7px;
+  margin: 0;
+  padding: 12px;
+}
+
+.ai-control-panel legend {
+  padding: 0 5px;
+}
+
+.checkbox-row {
+  align-items: center;
+  color: #18202f;
+  display: grid;
+  font-weight: 500;
+  gap: 8px;
+  grid-template-columns: auto 1fr;
+}
+
+.checkbox-row input {
+  min-height: 0;
+  width: auto;
+}
+
+.panel-heading {
+  align-items: center;
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+}
+
+.panel-heading h2 {
+  font-size: 18px;
+  line-height: 1.25;
+  margin: 0;
+}
+
+.prompt-output,
+.ai-answer-input {
+  border: 1px solid #cad3df;
+  border-radius: 7px;
+  line-height: 1.6;
+  min-height: 0;
+  outline: 0;
+  overflow: auto;
+  padding: 12px;
+  resize: vertical;
+  width: 100%;
+}
+
+.prompt-output {
+  background: #f7f9fc;
+  font-family: "Cascadia Code", "Consolas", monospace;
+}
+
+.ai-answer-input {
+  min-height: 190px;
+}
+
+.copy-status {
+  color: #28735f;
+  font-size: 13px;
+  font-weight: 700;
+  margin: -6px 0;
+}
+
+/* 860px以下ではナビとパレットを畳み、編集本文の幅を優先する。 */
+@media (max-width: 860px) {
+  .editor-layout,
+  .preview-grid,
+  .ai-maker-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .shell {
+    padding-left: 0;
+  }
+
+  .sidebar {
+    padding: 14px 18px;
+    position: sticky;
+    top: 0;
+    width: auto;
+  }
+
+  .sidebar-header {
+    align-items: center;
+    display: flex;
+    gap: 12px;
+    justify-content: space-between;
+  }
+
+  .brand {
+    margin-bottom: 0;
+  }
+
+  .menu-toggle {
+    background: #22304b;
+    border-color: #344461;
+    color: #ffffff;
+    display: inline-flex;
+    flex: 0 0 auto;
+  }
+
+  .sidebar-nav {
+    display: none;
+    gap: 4px;
+    padding-top: 12px;
+  }
+
+  .sidebar-nav.is-open {
+    display: grid;
+  }
+
+  .sidebar-nav a {
+    min-height: 42px;
+  }
+
+  .page {
+    padding: 18px;
+  }
+
+  .preview-page {
+    height: auto;
+    min-height: 100vh;
+  }
+
+  .page-header {
+    display: grid;
+  }
+
+  .editor-page .page-header {
+    margin: -18px -18px 18px;
+    padding: 18px 18px 12px;
+  }
+
+  .title-fields div,
+  .column-editors,
+  .image-options,
+  .answer-options,
+  .print-row {
+    grid-template-columns: 1fr;
+  }
+
+  .block-palette {
+    display: flex;
+    gap: 6px;
+    margin: 0 -18px;
+    overflow-x: auto;
+    padding: 0 18px 8px;
+    position: static;
+    scrollbar-width: thin;
+  }
+
+  .block-palette button {
+    flex: 0 0 auto;
+    font-size: 13px;
+    min-height: 34px;
+    padding: 0 10px;
+    white-space: nowrap;
+  }
+
+  .ai-control-panel {
+    position: static;
+  }
+
+  .ai-work-panel {
+    grid-template-rows: auto minmax(180px, 32vh) auto minmax(220px, 38vh);
+    height: auto;
+  }
+
+  .geogebra-workspace {
+    min-height: 560px;
+    padding: 8px;
+  }
+
+  .pdf-preview-panel {
+    grid-template-rows: auto minmax(360px, 70vh);
+  }
+
+  .code-preview {
+    height: min(70vh, 640px);
+  }
+}
+
+/* ブラウザ印刷時はアプリUIを隠し、プリント面だけを紙面サイズに合わせる。 */
+@media print {
+  :root {
+    background: #ffffff;
+  }
+
+  .sidebar,
+  .page-header,
+  .code-preview {
+    display: none;
+  }
+
+  .shell,
+  .preview-grid {
+    display: block;
+  }
+
+  .page {
+    padding: 0;
+  }
+
+  .paper-preview {
+    aspect-ratio: auto;
+    box-shadow: none;
+    max-width: none;
+    min-height: 257mm;
+    padding: 14mm 16mm;
+    width: 182mm;
+  }
+}
